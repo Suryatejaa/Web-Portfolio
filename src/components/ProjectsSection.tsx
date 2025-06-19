@@ -1,40 +1,74 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink, Zap, Database, Cloud, Code, Globe, Smartphone } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  ExternalLink,
+  Zap,
+  Database,
+  Cloud,
+  Code,
+  Globe,
+  Smartphone,
+} from "lucide-react";
 
 const ProjectsSection = () => {
   const projects = [
     {
       title: "PurplePG",
-      description: "Complete PG Management SaaS platform with microservices architecture, AI assistance, and automated workflows.",
+      description:
+        "Complete PG Management SaaS platform with microservices architecture, AI assistance, and automated workflows.",
       features: [
-        { icon: <Zap className="w-4 h-4 text-primary-500" />, text: "60% reduction in PG management overhead" },
-        { icon: <Database className="w-4 h-4 text-primary-500" />, text: "8+ independent microservices" },
-        { icon: <Cloud className="w-4 h-4 text-primary-500" />, text: "Docker containerization" }
+        {
+          icon: <Zap className="w-4 h-4 text-primary-500" />,
+          text: "60% reduction in PG management overhead",
+        },
+        {
+          icon: <Database className="w-4 h-4 text-primary-500" />,
+          text: "8+ independent microservices",
+        },
+        {
+          icon: <Cloud className="w-4 h-4 text-primary-500" />,
+          text: "Docker containerization",
+        },
       ],
-      technologies: ['MERN', 'Docker', 'Microservices', 'AI'],
-      delay: 0
+      technologies: ["MERN", "Docker", "Microservices", "AI"],
+      link: "http://www.purple-pgs.space/",
+      delay: 0,
     },
     {
       title: "EchoLift",
-      description: "Backend platform with MongoDB integration, JWT authentication, and comprehensive API design.",
+      description:
+        "Backend platform with MongoDB integration, JWT authentication, and comprehensive API design.",
       features: [
-        { icon: <Code className="w-4 h-4 text-primary-500" />, text: "RESTful API endpoints" },
-        { icon: <Database className="w-4 h-4 text-primary-500" />, text: "MongoDB optimization" }
+        {
+          icon: <Code className="w-4 h-4 text-primary-500" />,
+          text: "RESTful API endpoints",
+        },
+        {
+          icon: <Database className="w-4 h-4 text-primary-500" />,
+          text: "MongoDB optimization",
+        },
       ],
-      technologies: ['Express.js', 'MongoDB', 'JWT'],
-      delay: 0.1
+      technologies: ["Express.js", "MongoDB", "JWT"],
+      delay: 0.1,
     },
     {
       title: "CALCIE",
-      description: "Secret message platform with secure passcode system and automatic message expiration.",
+      description:
+        "Secret message platform with secure passcode system and automatic message expiration.",
       features: [
-        { icon: <Globe className="w-4 h-4 text-primary-500" />, text: "Live at www.calcie.site" },
-        { icon: <Smartphone className="w-4 h-4 text-primary-500" />, text: "Responsive design" }
+        {
+          icon: <Globe className="w-4 h-4 text-primary-500" />,
+          text: "Live at www.calcie.site",
+        },
+        {
+          icon: <Smartphone className="w-4 h-4 text-primary-500" />,
+          text: "Responsive design",
+        },
       ],
-      technologies: ['HTML', 'CSS', 'JavaScript'],
-      delay: 0.2
-    }
+      technologies: ["HTML", "CSS", "JavaScript"],
+      link: "https://www.calcie.site/",
+      delay: 0.2,
+    },
   ];
 
   return (
@@ -47,8 +81,12 @@ const ProjectsSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">Key Projects</h2>
-          <p className="text-xl text-slate-600">Building solutions that make a difference</p>
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            Key Projects
+          </h2>
+          <p className="text-xl text-slate-600">
+            Building solutions that make a difference
+          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -62,17 +100,32 @@ const ProjectsSection = () => {
               className="card p-6 group hover:scale-105 transition-transform duration-300"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-slate-900">{project.title}</h3>
-                <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
+                <h3 className="text-lg font-semibold text-slate-900">
+                  {project.title}
+                </h3>
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary-600 transition-colors"
+                    aria-label={`Visit ${project.title} website`}
+                  >
+                    <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
+                  </a>
+                ) : (
+                  <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
+                )}
               </div>
 
-              <p className="text-slate-600 mb-4">
-                {project.description}
-              </p>
+              <p className="text-slate-600 mb-4">{project.description}</p>
 
               <div className="space-y-2 mb-4">
                 {project.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-sm text-slate-700">
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 text-sm text-slate-700"
+                  >
                     {feature.icon}
                     {feature.text}
                   </div>
@@ -81,11 +134,28 @@ const ProjectsSection = () => {
 
               <div className="flex flex-wrap gap-1 mb-4">
                 {project.technologies.map((tech) => (
-                  <span key={tech} className="px-2 py-1 bg-primary-50 text-primary-700 rounded text-xs">
+                  <span
+                    key={tech}
+                    className="px-2 py-1 bg-primary-50 text-primary-700 rounded text-xs"
+                  >
                     {tech}
                   </span>
                 ))}
               </div>
+
+              {project.link && (
+                <div className="mt-4">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1 transition-colors"
+                  >
+                    <Globe className="w-4 h-4" />
+                    Visit Live Site
+                  </a>
+                </div>
+              )}
             </motion.div>
           ))}
         </div>

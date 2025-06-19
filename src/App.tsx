@@ -13,7 +13,7 @@ import {
 const App = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const scrollToSection = (sectionId) => {
+    const scrollToSection = (sectionId:any) => {
         console.log('Scrolling to section:', sectionId);
         const element = document.getElementById(sectionId);
         console.log('Element found:', element);
@@ -32,7 +32,7 @@ const App = () => {
         }
     };
 
-    const performScroll = (element) => {
+    const performScroll = (element:any) => {
         // Add offset for fixed navbar
         const navbarHeight = 80;
         const elementPosition = element.offsetTop - navbarHeight;
