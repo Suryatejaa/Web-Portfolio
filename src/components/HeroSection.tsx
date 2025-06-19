@@ -40,13 +40,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                   <Mail className="w-4 h-4" />
                   Get In Touch
                 </button>
-                <button
+                {/* <button
                   onClick={() => scrollToSection('contact')}
                   className="btn-secondary"
                 >
                   <Download className="w-4 h-4" />
                   Download Resume
-                </button>
+                </button> */}
               </div>
 
               <div className="flex items-center space-x-6 pt-4">
