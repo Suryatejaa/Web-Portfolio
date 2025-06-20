@@ -1,83 +1,115 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+const experiences = [
+  {
+    title: "Systems Associate",
+    company: "Infosys Limited",
+    duration: "Jan 2023 - Present",
+    highlights: [
+      "Maintained enterprise apps for 10,000+ users.",
+      "Implemented automated testing, reducing issues by 30%.",
+    ],
+  },
+  {
+    title: "Independent SaaS Developer",
+    company: "Side Project",
+    duration: "2 Months | 2024",
+    highlights: [
+      "Built a PG Management SaaS platform from concept to launch.",
+      "Architected a microservices infrastructure using Docker.",
+    ],
+  },
+];
 
 const ExperienceSection = () => {
-  const experiences = [
-    {
-      title: "Systems Associate",
-      company: "Infosys Limited",
-      duration: "January 2023 - Present",
-      highlights: [
-        "Maintained and enhanced enterprise applications serving 10,000+ users in production support environment",
-        "Implemented automated testing procedures reducing deployment issues by 30%",
-        "Gained expertise in large-scale system architecture and enterprise practices through SAP support team"
-      ],
-      technologies: ['Java', 'SQL', 'Unix', 'SAP', 'Enterprise Applications'],
-      animationDirection: 'left'
-    },
-    {
-      title: "Independent SaaS Developer",
-      company: "Side Project",
-      duration: "2 Months | 2024",
-      highlights: [
-        "Built complete PG Management SaaS platform from concept to deployment in 2 months",
-        "Architected microservices infrastructure using Docker containerization and API gateways",
-        "Achievement: Delivered production-ready MVP while maintaining 9-5 job commitment"
-      ],
-      technologies: ['React', 'Node.js', 'MongoDB', 'Docker', 'Microservices', 'AI Integration'],
-      animationDirection: 'right'
-    }
-  ];
+  const targetRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start center", "end end"],
+  });
+
+  const pathLength = useTransform(scrollYProgress, [0.1, 0.8], [0, 1]);
 
   return (
-    <section id="experience" className="section-padding">
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">Professional Experience</h2>
+    <section
+      id="experience"
+      ref={targetRef}
+      className="relative h-[200vh] bg-slate-100 py-20"
+    >
+      <div className="sticky top-0 h-screen flex flex-col items-center">
+        <motion.div className="text-center my-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            Career Journey
+          </h2>
         </motion.div>
 
-        <div className="space-y-8">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: exp.animationDirection === 'left' ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="card p-8"
-            >
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-                <div>
-                  <h3 className="text-xl font-semibold text-slate-900">{exp.title}</h3>
-                  <p className="text-primary-600 font-medium">{exp.company}</p>
-                </div>
-                <div className="text-slate-600">{exp.duration}</div>
-              </div>
+        <div className="container flex">
+          {/* Timeline */}
+          <div className="w-10 flex-shrink-0 flex justify-center">
+            <svg width="2" height="100%" className="h-full">
+              <motion.line
+                x1="1"
+                y1="0"
+                x2="1"
+                y2="100%"
+                stroke="#cbd5e1"
+                strokeWidth="2"
+              />
+              <motion.line
+                x1="1"
+                y1="0"
+                x2="1"
+                y2="100%"
+                stroke="#2563eb"
+                strokeWidth="2"
+                style={{ pathLength }}
+              />
+            </svg>
+          </div>
 
-              <div className="space-y-3 text-slate-700">
-                {exp.highlights.map((highlight, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-primary-500 rounded-full mt-2 flex-shrink-0"></div>
-                    <p dangerouslySetInnerHTML={{ __html: highlight }} />
+          {/* Experience Cards */}
+          <div className="flex-grow space-y-24 md:space-y-32">
+            {experiences.map((exp, index) => {
+              const start = 0.2 + index * 0.3;
+              const opacity = useTransform(
+                scrollYProgress,
+                [start, start + 0.1],
+                [0, 1]
+              );
+              const x = useTransform(
+                scrollYProgress,
+                [start, start + 0.1],
+                ["20px", "0px"]
+              );
+
+              return (
+                <motion.div
+                  key={index}
+                  style={{ opacity, x }}
+                  className="relative"
+                >
+                  <div className="absolute -left-[35px] md:-left-20 top-0 w-8 h-8 bg-primary-500 rounded-full border-4 border-slate-100" />
+                  <div className="card p-4 mr-4 md:ml-0">
+                    <div className="flex flex-col sm:flex-row justify-between sm:items-baseline mb-2">
+                      <h3 className="text-xl font-semibold text-slate-900">
+                        {exp.title}
+                      </h3>
+                      <p className="text-slate-500 text-sm">{exp.duration}</p>
+                    </div>
+                    <p className="text-primary-600 font-medium mb-4">
+                      {exp.company}
+                    </p>
+                    <ul className="space-y-2 text-slate-600 list-disc list-inside">
+                      {exp.highlights.map((h, i) => (
+                        <li key={i}>{h}</li>
+                      ))}
+                    </ul>
                   </div>
-                ))}
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {exp.technologies.map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-sm">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

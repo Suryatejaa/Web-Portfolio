@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-900 text-white py-8">
-      <div className="container">
-        <div className="text-center">
-          <p className="text-slate-400">
-            © 2025 Surya Teja Illa. Designed and built with React & TypeScript.
-          </p>
-        </div>
+    <footer className="bg-slate-900 text-white py-6">
+      <div className="container text-center">
+        <p className="text-slate-400 text-sm">
+          © 2025 Surya Teja Illa. A scrollytelling experience built with Gemini,
+          React & Framer Motion.
+        </p>
       </div>
     </footer>
   );

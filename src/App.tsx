@@ -4,38 +4,19 @@ import {
     HeroSection,
     AboutSection,
     ExperienceSection,
+    ScrollytellingSection,
     ProjectsSection,
     SkillsSection,
     ContactSection,
     Footer
 } from './components';
 
-const App = () => {
+const App: React.FC = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const scrollToSection = (sectionId:any) => {
-        console.log('Scrolling to section:', sectionId);
-        const element = document.getElementById(sectionId);
-        console.log('Element found:', element);
-
-        if (element) {
-            // Close mobile menu first if it's open
-            if (isMobileMenuOpen) {
-                setIsMobileMenuOpen(false);
-                // Add delay for mobile menu close animation
-                setTimeout(() => {
-                    performScroll(element);
-                }, 300);
-            } else {
-                performScroll(element);
-            }
-        }
-    };
-
-    const performScroll = (element:any) => {
-        // Add offset for fixed navbar
-        const navbarHeight = 80;
-        const elementPosition = element.offsetTop - navbarHeight;
+    const performScroll = (element: HTMLElement) => {
+        const navbarHeight = 64; // Navbar is 4rem/64px tall
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY - navbarHeight;
 
         window.scrollTo({
             top: elementPosition,
@@ -43,24 +24,39 @@ const App = () => {
         });
     };
 
+    const scrollToSection = (sectionId: string) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            if (isMobileMenuOpen) {
+                setIsMobileMenuOpen(false);
+                setTimeout(() => performScroll(element), 300); // Wait for menu to close
+            } else {
+                performScroll(element);
+            }
+        }
+    };
+
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="bg-slate-100">
             <Navigation
                 isMobileMenuOpen={isMobileMenuOpen}
                 toggleMobileMenu={toggleMobileMenu}
                 scrollToSection={scrollToSection}
                 setIsMobileMenuOpen={setIsMobileMenuOpen}
             />
-            <HeroSection scrollToSection={scrollToSection} />
-            <AboutSection />
-            <ExperienceSection />
-            <ProjectsSection />
-            <SkillsSection />
-            <ContactSection />
+            <main>
+                <HeroSection scrollToSection={scrollToSection} />
+                <AboutSection />
+                <ExperienceSection />
+                <ScrollytellingSection />
+                <ProjectsSection />
+                <SkillsSection />
+                <ContactSection />
+            </main>
             <Footer />
         </div>
     );

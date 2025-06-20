@@ -1,114 +1,75 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Mail, Linkedin, Github, Phone, MessageCircle } from "lucide-react";
 
 const ContactSection = () => {
+  // IMPORTANT: Replace with your actual phone number
+  const phoneNumber = "+919346358559"; // Use international format without '+' or spaces for WhatsApp
+  const telNumber = "+91-934-635-8559"; // Use a readable format for the tel link
+
   return (
-    <section id="contact" className="section-padding bg-white">
-      <div className="container">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
+    <section
+      id="contact"
+      className="relative h-screen bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative h-full flex flex-col items-center justify-center text-center text-white p-4"
+      >
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+          Let's Build Together
+        </h2>
+        <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8">
+          I'm ready to tackle new challenges and contribute to a high-growth
+          startup.
+        </p>
+        <a
+          href="mailto:illasuryanani2001@gmail.com"
+          className="btn-primary text-lg"
         >
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">Let's Build Something Amazing</h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Ready to contribute to scaling challenges and prepare for future entrepreneurial ventures
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-6"
+          <Mail className="w-5 h-5" />
+          Contact Me
+        </a>
+        <div className="flex space-x-6 mt-8">
+          <a
+            href={`https://wa.me/${phoneNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-400 hover:text-white transition-colors"
+            aria-label="WhatsApp"
           >
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="font-medium text-slate-900">Email</p>
-                  <a
-                    href="mailto:illasuryanani2001@gmail.com?subject=Portfolio Contact - Startup Opportunity&body=Hi Surya,%0D%0A%0D%0AI came across your portfolio and would like to discuss potential opportunities.%0D%0A%0D%0ABest regards"
-                    className="text-slate-600 hover:text-primary-600 transition-colors"
-                  >
-                    illasuryanani2001@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="font-medium text-slate-900">Phone</p>
-                  <a
-                    href="tel:+919346358559"
-                    className="text-slate-600 hover:text-primary-600 transition-colors"
-                  >
-                    +91-9346358559
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="font-medium text-slate-900">Location</p>
-                  <p className="text-slate-600">Hyderabad, Telangana</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex space-x-4 pt-4">
-              <a
-                href="https://www.linkedin.com/in/surya-teja-illa-706108232/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-primary-600 text-white rounded-lg flex items-center justify-center hover:bg-primary-700 transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a
-                href="https://github.com/Suryatejaa"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-primary-600 text-white rounded-lg flex items-center justify-center hover:bg-primary-700 transition-colors"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-gradient-to-br from-blue-200 to-indigo-200 rounded-3xl p-8 text-black"
+            <MessageCircle />
+          </a>
+          <a
+            href={`tel:${telNumber}`}
+            className="text-slate-400 hover:text-white transition-colors"
+            aria-label="Call"
           >
-            <h3 className="text-2xl font-bold mb-6">🎯 Career Objective</h3>
-            <p className="text-black leading-relaxed mb-6">
-              Seeking a challenging Full-Stack Developer role in a high-growth startup where I can leverage my
-              product development experience, technical skills, and entrepreneurial mindset to contribute to
-              scaling challenges while gaining the experience needed to launch my own startup venture.
-            </p>
-            <p className="text-black text-sm">
-              Particularly interested in FinTech, SaaS, and AI-driven platforms with focus on backend systems
-              and microservices architecture.
-            </p>
-          </motion.div>
+            <Phone />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/surya-teja-illa-706108232/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-400 hover:text-white transition-colors"
+            aria-label="LinkedIn"
+          >
+            <Linkedin />
+          </a>
+          <a
+            href="https://github.com/Suryatejaa"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-slate-400 hover:text-white transition-colors"
+            aria-label="GitHub"
+          >
+            <Github />
+          </a>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

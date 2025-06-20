@@ -1,164 +1,90 @@
-import React from "react";
-import { motion } from "framer-motion";
-import {
-  ExternalLink,
-  Zap,
-  Database,
-  Cloud,
-  Code,
-  Globe,
-  Smartphone,
-} from "lucide-react";
+import React, { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ExternalLink } from "lucide-react";
+
+const projects = [
+  {
+    title: "PurplePG",
+    description: "A complete PG Management SaaS platform.",
+    technologies: ["MERN", "Docker", "Microservices"],
+    link: "http://www.purple-pgs.space/",
+  },
+  {
+    title: "CALCIE",
+    description: "A secret message platform with secure passcodes.",
+    technologies: ["HTML", "CSS", "JavaScript"],
+    link: "https://www.calcie.site/",
+  },
+  {
+    title: "EchoLift",
+    description: "A robust backend with MongoDB and JWT auth.",
+    technologies: ["Express.js", "MongoDB", "JWT"],
+    link: "",
+  },
+];
 
 const ProjectsSection = () => {
-  const projects = [
-    {
-      title: "PurplePG",
-      description:
-        "Complete PG Management SaaS platform with microservices architecture, AI assistance, and automated workflows.",
-      features: [
-        {
-          icon: <Zap className="w-4 h-4 text-primary-500" />,
-          text: "60% reduction in PG management overhead",
-        },
-        {
-          icon: <Database className="w-4 h-4 text-primary-500" />,
-          text: "8+ independent microservices",
-        },
-        {
-          icon: <Cloud className="w-4 h-4 text-primary-500" />,
-          text: "Docker containerization",
-        },
-      ],
-      technologies: ["MERN", "Docker", "Microservices", "AI"],
-      link: "http://www.purple-pgs.space/",
-      delay: 0,
-    },
-    {
-      title: "EchoLift",
-      description:
-        "Backend platform with MongoDB integration, JWT authentication, and comprehensive API design.",
-      features: [
-        {
-          icon: <Code className="w-4 h-4 text-primary-500" />,
-          text: "RESTful API endpoints",
-        },
-        {
-          icon: <Database className="w-4 h-4 text-primary-500" />,
-          text: "MongoDB optimization",
-        },
-      ],
-      technologies: ["Express.js", "MongoDB", "JWT"],
-      delay: 0.1,
-    },
-    {
-      title: "CALCIE",
-      description:
-        "Secret message platform with secure passcode system and automatic message expiration.",
-      features: [
-        {
-          icon: <Globe className="w-4 h-4 text-primary-500" />,
-          text: "Live at www.calcie.site",
-        },
-        {
-          icon: <Smartphone className="w-4 h-4 text-primary-500" />,
-          text: "Responsive design",
-        },
-      ],
-      technologies: ["HTML", "CSS", "JavaScript"],
-      link: "https://www.calcie.site/",
-      delay: 0.2,
-    },
-  ];
+  const targetRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"],
+  });
+
+  const x = useTransform(scrollYProgress, [0, 1], ["100%", "-100%"]);
 
   return (
-    <section id="projects" className="section-padding bg-white">
-      <div className="container">
+    <section
+      id="projects"
+      ref={targetRef}
+      className="relative h-[300vh] bg-slate-100"
+    >
+      <div className="sticky top-0 h-screen flex flex-col items-center justify-center overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">
-            Key Projects
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900">
+            My Work
           </h2>
-          <p className="text-xl text-slate-600">
-            Building solutions that make a difference
-          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: project.delay }}
-              viewport={{ once: true }}
-              className="card p-6 group hover:scale-105 transition-transform duration-300"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-slate-900">
+        <motion.div style={{ x }} className="flex gap-4 md:gap-8">
+          {projects.map((project) => {
+            return (
+              <div
+                key={project.title}
+                className="card w-[85vw] md:w-[450px] flex-shrink-0 p-8 bg-white/80 backdrop-blur-lg border"
+              >
+                <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">
                   {project.title}
                 </h3>
-                {project.link ? (
+                <p className="text-slate-600 mb-4">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-1 bg-slate-100 text-slate-700 rounded text-xs"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                {project.link && (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-primary-600 transition-colors"
-                    aria-label={`Visit ${project.title} website`}
+                    className="text-primary-600 font-medium inline-flex items-center gap-1 hover:underline"
                   >
-                    <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
+                    Visit Site <ExternalLink size={16} />
                   </a>
-                ) : (
-                  <ExternalLink className="w-5 h-5 text-slate-400 group-hover:text-primary-600 transition-colors" />
                 )}
               </div>
-
-              <p className="text-slate-600 mb-4">{project.description}</p>
-
-              <div className="space-y-2 mb-4">
-                {project.features.map((feature, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-2 text-sm text-slate-700"
-                  >
-                    {feature.icon}
-                    {feature.text}
-                  </div>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-1 mb-4">
-                {project.technologies.map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-2 py-1 bg-primary-50 text-primary-700 rounded text-xs"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {project.link && (
-                <div className="mt-4">
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1 transition-colors"
-                  >
-                    <Globe className="w-4 h-4" />
-                    Visit Live Site
-                  </a>
-                </div>
-              )}
-            </motion.div>
-          ))}
-        </div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );
