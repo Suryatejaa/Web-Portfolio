@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Menu, X, Mail, Linkedin, Github } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 type NavigationProps = {
   isMobileMenuOpen: boolean;
@@ -71,7 +71,8 @@ const Navigation: React.FC<NavigationProps> = ({
       </nav>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40">
+        <div className="md:hidden fixed inset-0 z-50">
+          {/* Changed z-40 to z-50 */}
           <div
             className="fixed inset-0 bg-black/20"
             onClick={() => setIsMobileMenuOpen(false)}
@@ -83,11 +84,14 @@ const Navigation: React.FC<NavigationProps> = ({
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="fixed top-0 right-0 w-64 h-full bg-white shadow-xl"
           >
-            <div className="p-4 space-y-2 pt-20">
+            <div className="p-4  space-y-2 pt-20">
               {navItems.map((item) => (
                 <button
                   key={item}
-                  onClick={() => scrollToSection(item.toLowerCase())}
+                  onClick={() => {
+                    scrollToSection(item.toLowerCase());
+                    setIsMobileMenuOpen(false); // Close menu on click
+                  }}
                   className="w-full text-left px-4 py-3 rounded-lg text-slate-700 hover:bg-primary-50 hover:text-primary-600"
                 >
                   {item}
